@@ -1,0 +1,17 @@
+body {
+  padding: 16px;
+}
+
+a {
+  background: black;
+  width: 100px;
+  color: white;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+  padding: 16px 8px;
+  text-decoration: none;
+}
+
+a:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
