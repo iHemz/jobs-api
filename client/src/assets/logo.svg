@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="25" fill="#2563EB"/>
+  <path d="M64 32L80 48H72V64H56V48H48L64 32Z" fill="white"/>
+  <path d="M64 96L48 80H56V64H72V80H80L64 96Z" fill="white"/>
+  <path d="M32 64L48 80V72H64V56H48V48L32 64Z" fill="white"/>
+  <path d="M96 64L80 48V56H64V72H80V80L96 64Z" fill="white"/>
+  <text x="50%" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Jobizzi</text>
+</svg>
