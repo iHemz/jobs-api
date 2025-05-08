@@ -1,11 +1,24 @@
+import { Logo, ThemeToggler } from "@/components";
+import { Anchor } from "@/styledComponents";
+
 export function Header() {
   return (
-    <div>
-      <h1>Jobizzi</h1>
-      <nav>
-        <a href="/login">Login</a>
-        <a href="/signup">Sign Up</a>
-      </nav>
-    </div>
+    <>
+      <Logo path="/" />
+      <div>
+        <nav>
+          <Anchor
+            href="https://jobs-api-tydg.onrender.com/api-docs/"
+            target="_blank"
+          >
+            API Documentation
+          </Anchor>
+          <Anchor href="/login">Login</Anchor>
+          <Anchor href="/register">Sign Up</Anchor>
+        </nav>
+
+        <ThemeToggler />
+      </div>
+    </>
   );
 }

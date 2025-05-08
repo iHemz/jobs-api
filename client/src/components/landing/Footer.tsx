@@ -1,13 +1,20 @@
+import { Anchor } from "@/styledComponents";
+import { SOCIALS_DATA } from "@/utils/data";
+
 export function Footer() {
   return (
-    <div>
-      <p>&copy; {new Date().getFullYear()} Jobizzi. All rights reserved.</p>
+    <>
+      <h2>Contact Us @</h2>
       <nav>
-        <a href="/about">About</a>
-        <a href="/features">Features</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/contact">Contact</a>
+        {SOCIALS_DATA.map((social) => (
+          <Anchor key={social.id} href={social.href}>
+            <social.icon />
+          </Anchor>
+        ))}
       </nav>
-    </div>
+      <small>
+        &copy; {new Date().getFullYear()} Jobizzi. All rights reserved.
+      </small>
+    </>
   );
 }

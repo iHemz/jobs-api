@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/hooks/useStore";
 import { Footer, Header, Main, Wrapper } from "@/styledComponents";
 import type { AppShellProps } from "@/types/appshell";
 import type React from "react";
@@ -8,8 +9,10 @@ export default function AppShell({
   aside: AsideContent,
   footer: FooterContent,
 }: AppShellProps<React.ComponentType>) {
+  const isDark = useAppSelector((state) => state.tools.isDarkTheme);
+
   return (
-    <Wrapper>
+    <Wrapper $dark={isDark}>
       <Header>
         <HeaderContent />
       </Header>
