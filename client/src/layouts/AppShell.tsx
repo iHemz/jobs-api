@@ -11,10 +11,11 @@ export default function AppShell({
 }: AppShellProps<React.ComponentType<{ pathname?: string }>>) {
   const isDark = useAppSelector((state) => state.tools.isDarkTheme);
   const location = useLocation();
+  const isAppPages = location.pathname.includes("app");
 
   return (
     <Wrapper $dark={isDark} $aside={!!AsideContent} $asideWidth={320}>
-      <Header>
+      <Header $isApp={isAppPages}>
         <HeaderContent pathname={location.pathname} />
       </Header>
       <Main>

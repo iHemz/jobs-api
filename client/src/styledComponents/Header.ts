@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Header = styled.header<{ $dark?: boolean }>`
+export const Header = styled.header<{ $dark?: boolean; $isApp?: boolean }>`
   padding: 0 2rem;
   height: 5rem;
   display: flex;
@@ -25,7 +25,8 @@ export const Header = styled.header<{ $dark?: boolean }>`
 
   @media screen and (min-width: 1024px) {
     & {
-      justify-content: flex-end;
+      justify-content: ${(props) =>
+        props.$isApp ? "flex-end" : "space-between"};
     }
   }
 `;
