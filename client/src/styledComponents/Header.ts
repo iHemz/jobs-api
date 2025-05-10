@@ -23,21 +23,9 @@ export const Header = styled.header<{ $dark?: boolean }>`
     gap: 8px;
   }
 
-  .logo {
-    font-family: ${(props) => props.theme.HEADING_FONT};
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: ${(props) => props.theme.PRIMARY_6};
-    text-shadow: 0 0 4px black;
-    font-size: 1.2rem;
-    transition: ${(props) => props.theme.TRANSITION};
-
-    &:hover {
-      filter: blur(1px);
-      opacity: 0.95;
-      scale: 1.01;
+  @media screen and (min-width: 1024px) {
+    & {
+      justify-content: flex-end;
     }
   }
 `;

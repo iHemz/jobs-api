@@ -65,3 +65,25 @@ export const ActionCallSection = styled(Section)`
     margin-top: 20px;
   }
 `;
+
+export const ErrorSection = styled(Section)`
+  height: 100vh;
+  place-content: center;
+  place-items: center;
+
+  .content-wrapper {
+    height: fit-content;
+    width: fit-content;
+    place-items: center;
+
+    div {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  img {
+    height: auto;
+    width: 400px;
+  }
+`;

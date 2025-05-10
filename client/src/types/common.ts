@@ -20,3 +20,10 @@ export type SocialProps = {
   href: string;
   icon: IconType;
 };
+
+export type MenuLinkProps = {
+  id: string;
+  href: string;
+  icon: IconType;
+  title: string;
+};

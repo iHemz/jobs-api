@@ -2,25 +2,26 @@ import { useAppSelector } from "@/hooks/useStore";
 import { Footer, Header, Main, Wrapper } from "@/styledComponents";
 import type { AppShellProps } from "@/types/appshell";
 import type React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 export default function AppShell({
   header: HeaderContent,
   aside: AsideContent,
   footer: FooterContent,
-}: AppShellProps<React.ComponentType>) {
+}: AppShellProps<React.ComponentType<{ pathname?: string }>>) {
   const isDark = useAppSelector((state) => state.tools.isDarkTheme);
+  const location = useLocation();
 
   return (
-    <Wrapper $dark={isDark}>
+    <Wrapper $dark={isDark} $aside={!!AsideContent} $asideWidth={320}>
       <Header>
-        <HeaderContent />
+        <HeaderContent pathname={location.pathname} />
       </Header>
       <Main>
         <Outlet />
-        {AsideContent && <AsideContent />}
       </Main>
       <Footer>{FooterContent && <FooterContent />}</Footer>
+      {AsideContent && <AsideContent />}
     </Wrapper>
   );
 }

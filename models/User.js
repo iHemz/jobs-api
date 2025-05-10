@@ -38,7 +38,7 @@ UserSchema.methods.createJWT = function () {
     { expiresIn: JWT_LIFETIME }
   );
 
-  return { name: this.name, userId: this._id, token };
+  return { name: this.name, email: this.email, userId: this._id, token };
 };
 
 UserSchema.methods.comparePasswords = async function (userPassword) {

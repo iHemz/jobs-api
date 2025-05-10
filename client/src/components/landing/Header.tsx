@@ -1,10 +1,15 @@
 import { Logo, ThemeToggler } from "@/components";
 import { Anchor } from "@/styledComponents";
 
-export function Header() {
+export function Header({ pathname }: { pathname?: string }) {
+  const isHomePage = pathname === "/";
+  const isAppPages = !isHomePage && !pathname?.includes("auth");
+  const rootPath = isAppPages ? "/dashboard" : "/";
+
   return (
     <>
-      <Logo path="/" />
+      {!isAppPages && <Logo path={rootPath} />}
+      {isAppPages && <Logo path={rootPath} className="app" />}
       <div>
         <nav>
           <Anchor
@@ -13,8 +18,12 @@ export function Header() {
           >
             API Documentation
           </Anchor>
-          <Anchor href="/login">Login</Anchor>
-          <Anchor href="/register">Sign Up</Anchor>
+          {isHomePage && (
+            <>
+              <Anchor href="/auth/login">Login</Anchor>
+              <Anchor href="/auth/register">Sign Up</Anchor>
+            </>
+          )}
         </nav>
 
         <ThemeToggler />

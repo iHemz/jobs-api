@@ -10,4 +10,10 @@ const deleteCookie = (name: string) => {
   Cookies.remove(name);
 };
 
-export { addCookie, deleteCookie, getCookie };
+const deleteCookies = (names: string[]) => {
+  names.forEach((name) => {
+    Cookies.remove(name);
+  });
+};
+
+export { addCookie, deleteCookie, deleteCookies, getCookie };

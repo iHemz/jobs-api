@@ -12,7 +12,7 @@ export function Hero() {
           Take control of your job search with Jobizzi - the ultimate platform
           for tracking, managing, and analyzing your job applications.
         </p>
-        <Button onClick={() => void navigate("/register")}>
+        <Button onClick={() => void navigate("/auth/register")}>
           Start Tracking Today
         </Button>
       </div>

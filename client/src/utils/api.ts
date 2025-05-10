@@ -1,7 +1,7 @@
 import type { FetchType } from "@/types/api";
 import { getAccessToken } from "@/utils/auth";
 
-export const baseURL = process.env.PUBLIC_BASE_URL;
+export const baseURL = import.meta.env.VITE_SERVER_URL;
 
 function getBearerTokenHeaderValue() {
   const accessToken = getAccessToken();
@@ -60,7 +60,7 @@ async function doFetch<Type>({
             }
           }
           if (!response.status.toString().startsWith("20")) {
-            reject(json?.message ?? "Something went wrong");
+            reject(json?.msg ?? "Something went wrong");
           } else {
             resolve(json);
           }

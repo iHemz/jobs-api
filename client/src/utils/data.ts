@@ -7,11 +7,21 @@ import {
   RESUME_MGT,
 } from "@/assets";
 import type {
+  MenuLinkProps,
   SocialProps,
   TestimonialProp,
   TitleCardProps,
 } from "@/types/common";
-import { FaEmail, FaGithub, FaLinkedinIn, FaTwitter } from "@/utils/icons";
+import {
+  FaCreateJob,
+  FaEmail,
+  FaGithub,
+  FaHome,
+  FaLinkedinIn,
+  FaTwitter,
+  FaUser,
+  FaWork,
+} from "@/utils/icons";
 
 export const FEATURES_DATA: TitleCardProps[] = [
   {
@@ -82,7 +92,7 @@ export const PRICING_DATA: TitleCardProps[] = [
     id: crypto.randomUUID(),
     title: "Free Plan",
     list: ["Track up to 10 applications", "Basic analytics", "Email reminders"],
-    btnLink: "/register",
+    btnLink: "/auth/register",
     btnTitle: "Get Started",
   },
   {
@@ -94,7 +104,7 @@ export const PRICING_DATA: TitleCardProps[] = [
       "Interview preparation tools",
       "Priority support",
     ],
-    btnLink: "/register",
+    btnLink: "/auth/register",
     btnTitle: "Upgraded Now",
   },
 ];
@@ -119,5 +129,32 @@ export const SOCIALS_DATA: SocialProps[] = [
     id: crypto.randomUUID(),
     href: "mailto:williamsbalogun49@gmail.com",
     icon: FaEmail,
+  },
+];
+
+export const MENU_LINKS: MenuLinkProps[] = [
+  {
+    id: crypto.randomUUID(),
+    href: "/app",
+    icon: FaHome,
+    title: "Dashboard",
+  },
+  {
+    id: crypto.randomUUID(),
+    href: "/app/jobs",
+    icon: FaWork,
+    title: "Jobs",
+  },
+  {
+    id: crypto.randomUUID(),
+    href: "/app/jobs/create",
+    icon: FaCreateJob,
+    title: "Add Job",
+  },
+  {
+    id: crypto.randomUUID(),
+    href: "/app/profile",
+    icon: FaUser,
+    title: "Profile",
   },
 ];

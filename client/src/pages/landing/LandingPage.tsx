@@ -17,7 +17,7 @@ export function LandingPage() {
           title="Ready to Transform Your Job Search?"
           text={`Join thousands of successful job seekers who have taken control of
           their career with Jobizzi.`}
-          btnLink="/register"
+          btnLink="/auth/register"
           btnTitle="Start Your Free Trial"
         />
       </ActionCallSection>
