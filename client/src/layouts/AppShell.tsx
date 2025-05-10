@@ -2,7 +2,7 @@ import { useAppSelector } from "@/hooks/useStore";
 import { Footer, Header, Main, Wrapper } from "@/styledComponents";
 import type { AppShellProps } from "@/types/appshell";
 import type React from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function AppShell({
   header: HeaderContent,

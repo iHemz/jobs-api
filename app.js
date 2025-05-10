@@ -27,6 +27,7 @@ const {
 } = require("./middleware");
 
 app.set("trust proxy", 1);
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 mins
   max: 50,
@@ -39,12 +40,15 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
-app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authMiddleWare, jobsRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
+});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

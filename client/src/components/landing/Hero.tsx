@@ -1,6 +1,6 @@
 import { TRACKER_IMAGE } from "@/assets";
 import { Button, Div, HeroSection, ImageWrapper } from "@/styledComponents";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
   const navigate = useNavigate();

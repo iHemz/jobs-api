@@ -10,7 +10,7 @@ import {
   type ErrorOption,
   type SubmitHandler,
 } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 export function AuthForm({ authType }: AuthProps) {
   const isLogin = authType === "LOGIN";

@@ -1,6 +1,6 @@
 import { LOGO } from "@/assets";
 import { ImageWrapper } from "@/styledComponents";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 type Props = {
   path: string;

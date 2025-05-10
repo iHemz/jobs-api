@@ -1,6 +1,6 @@
 import { Button, ImageWrapper } from "@/styledComponents";
 import type { TitleCardProps } from "@/types/common";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function TitleCard({
   title,

@@ -1,6 +1,6 @@
 import { ProtectedRoute } from "@/layouts/ProtectedRoute";
 import { AuthForm, Dashboard, Error, Landing, LandingPage } from "@/pages";
-import { createBrowserRouter as cRouter } from "react-router";
+import { createBrowserRouter as cRouter } from "react-router-dom";
 
 export const router = cRouter([
   {

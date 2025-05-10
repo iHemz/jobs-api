@@ -2,7 +2,7 @@ import { Logo } from "@/components";
 import { useAppSelector } from "@/hooks/useStore";
 import { Aside } from "@/styledComponents";
 import { MENU_LINKS } from "@/utils/data";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 
 export function Navbar() {
   const isDark = useAppSelector((state) => state.tools.isDarkTheme);

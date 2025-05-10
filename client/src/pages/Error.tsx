@@ -1,6 +1,6 @@
 import { NOT_FOUND } from "@/assets";
 import { Button, Div, ErrorSection, ImageWrapper } from "@/styledComponents";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export function Error() {
   const navigate = useNavigate();

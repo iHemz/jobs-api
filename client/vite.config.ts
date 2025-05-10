@@ -8,7 +8,33 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
-      "@mui/styled-engine": "@mui/styled-engine-sc",
     },
+  },
+  define: {
+    "process.env": {},
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Manual chunking configuration to optimize bundle size
+        manualChunks: {
+          // Group React and ReactDOM in a vendor chunk
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          // Group all MUI components in a separate chunk
+          "vendor-mui": [
+            "@mui/material",
+            "@emotion/react",
+            "@emotion/styled",
+            "styled-components",
+          ],
+          // Group all Redux related packages
+          "vendor-redux": ["@reduxjs/toolkit", "react-redux"],
+          // Group utility libraries
+          "vendor-utils": ["js-cookie", "react-hook-form", "react-icons"],
+        },
+      },
+    },
+
+    chunkSizeWarningLimit: 800,
   },
 });
