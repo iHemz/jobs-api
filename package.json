@@ -3,7 +3,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "cd client && pnpm run build"
+    "client": "cd client && pnpm install && pnpm run build",
+    "build": "pnpm run client"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
