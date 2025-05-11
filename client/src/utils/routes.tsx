@@ -26,10 +26,10 @@ export const router = cRouter([
     Component: ProtectedRoute,
     children: [
       { index: true, Component: Dashboard },
-      { path: "/jobs", Component: Jobs },
-      { path: "/job/edit/:id", Component: JobForm },
-      { path: "/job/create", Component: JobForm },
-      { path: "/profile", Component: Profile },
+      { path: "/app/jobs", Component: Jobs },
+      { path: "/app/job/edit/:id", Component: JobForm },
+      { path: "/app/job/create", Component: JobForm },
+      { path: "/app/profile", Component: Profile },
     ],
   },
   {
