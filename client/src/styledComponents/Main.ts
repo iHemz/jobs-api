@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const Main = styled.main<{ $dark?: boolean }>`
-  padding: 5rem 2rem 0.75rem;
-  margin-top: -5rem;
+export const Main = styled.main<{ $dark?: boolean; $isApp?: boolean }>`
+  padding: 2rem;
+  width: 100%;
+  margin-top: ${(props) => (props.$isApp ? 0 : "5rem")};
 `;

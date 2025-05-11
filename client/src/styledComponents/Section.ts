@@ -87,3 +87,27 @@ export const ErrorSection = styled(Section)`
     width: 400px;
   }
 `;
+
+export const DashboardWrapper = styled(Section)`
+  min-height: inherit;
+  flex-grow: 1;
+  height: 100%;
+
+  & > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    & > div {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    & > div {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+`;

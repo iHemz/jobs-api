@@ -23,10 +23,16 @@ export const Header = styled.header<{ $dark?: boolean; $isApp?: boolean }>`
     gap: 8px;
   }
 
+  a {
+    display: none;
+  }
+
   @media screen and (min-width: 1024px) {
-    & {
-      justify-content: ${(props) =>
-        props.$isApp ? "flex-end" : "space-between"};
+    justify-content: ${(props) =>
+      props.$isApp ? "flex-end" : "space-between"};
+
+    a {
+      display: block;
     }
   }
 `;

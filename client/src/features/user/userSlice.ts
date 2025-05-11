@@ -83,7 +83,6 @@ const userSlice = createSlice({
     });
     builder.addCase(clearStore.fulfilled, (state) => {
       state.isLoading = false;
-      toast.success("User logged out successfully");
     });
     builder.addCase(clearStore.rejected, (state) => {
       state.isLoading = false;

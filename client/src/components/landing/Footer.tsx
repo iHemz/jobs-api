@@ -4,7 +4,7 @@ import { SOCIALS_DATA } from "@/utils/data";
 export function Footer() {
   return (
     <>
-      <h2>Contact Us @</h2>
+      <h4>Contact Us @</h4>
       <nav>
         {SOCIALS_DATA.map((social) => (
           <Anchor key={social.id} href={social.href}>

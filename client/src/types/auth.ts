@@ -1,5 +1,6 @@
 interface UserClass {
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
 }
 
@@ -10,6 +11,7 @@ interface UserAuth extends UserClass {
 interface AuthenticatedUser extends UserClass {
   userId: string;
   token: string;
+  name: string;
 }
 
 type AuthProps = {

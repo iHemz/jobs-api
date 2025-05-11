@@ -1,14 +1,31 @@
 import { Logo } from "@/components";
-import { useAppSelector } from "@/hooks/useStore";
+import { closeMobileMenu } from "@/features/tools/toolsSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { ProfileMenu } from "@/layouts/ProfileMenu";
 import { Aside } from "@/styledComponents";
 import { MENU_LINKS } from "@/utils/data";
+import MenuClose from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export function Navbar() {
-  const isDark = useAppSelector((state) => state.tools.isDarkTheme);
+  const { isDarkTheme, isMobileMenuOpen } = useAppSelector(
+    (state) => state.tools
+  );
+  const dispatch = useAppDispatch();
+
   return (
-    <Aside $dark={isDark}>
-      <Logo path="/app" />
+    <Aside $dark={isDarkTheme} $isMobileMenuOpen={isMobileMenuOpen}>
+      <div className="mobile-menu">
+        <Logo path="/app" />
+        <IconButton
+          className="menu-btn"
+          size="small"
+          onClick={() => dispatch(closeMobileMenu())}
+        >
+          <MenuClose className="menu-icon" sx={{ width: 32, height: 32 }} />
+        </IconButton>
+      </div>
       <nav>
         {MENU_LINKS.map((link) => (
           <NavLink
@@ -23,6 +40,7 @@ export function Navbar() {
           </NavLink>
         ))}
       </nav>
+      <ProfileMenu />
     </Aside>
   );
 }

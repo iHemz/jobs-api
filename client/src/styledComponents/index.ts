@@ -1,4 +1,5 @@
 export { Anchor } from "@/styledComponents/Anchor";
+export { JobCardWrapper } from "@/styledComponents/Article";
 export { Aside } from "@/styledComponents/Aside";
 export { Button } from "@/styledComponents/Button";
 export { Div } from "@/styledComponents/Div";
@@ -11,6 +12,7 @@ export { Input as InputWrapper } from "@/styledComponents/Input";
 export { Main } from "@/styledComponents/Main";
 export {
   ActionCallSection,
+  DashboardWrapper,
   ErrorSection,
   FeaturesSection,
   HeroSection,

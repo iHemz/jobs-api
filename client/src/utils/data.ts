@@ -7,6 +7,8 @@ import {
   RESUME_MGT,
 } from "@/assets";
 import type {
+  JobCategory,
+  JobType,
   MenuLinkProps,
   SocialProps,
   TestimonialProp,
@@ -22,6 +24,7 @@ import {
   FaUser,
   FaWork,
 } from "@/utils/icons";
+import { EventAvailable, HourglassTop, WorkOff } from "@mui/icons-material";
 
 export const FEATURES_DATA: TitleCardProps[] = [
   {
@@ -158,3 +161,17 @@ export const MENU_LINKS: MenuLinkProps[] = [
     title: "Profile",
   },
 ];
+
+export const JOBS_TYPE: Record<JobCategory, JobType> = {
+  pending: {
+    icon: HourglassTop,
+    class: "pending-job",
+    title: "Pending Applications",
+  },
+  scheduled: {
+    icon: EventAvailable,
+    class: "scheduled-job",
+    title: "Scheduled Interviews",
+  },
+  declined: { icon: WorkOff, class: "declined-job", title: "Jobs Declined" },
+};

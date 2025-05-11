@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export const Aside = styled.aside<{ $dark?: boolean }>`
-  padding: 0.1rem 1rem;
-  background: ${(props) =>
-    props.$dark ? "rgba(26, 26, 36, 0.95)" : props.theme.PRIMARY_0};
+export const Aside = styled.aside<{
+  $dark?: boolean;
+  $isMobileMenuOpen?: boolean;
+}>`
+  padding: 1.1rem 1rem;
+  background: ${(props) => (props.$dark ? "#20202c" : props.theme.PRIMARY_0)};
   height: 100vh;
-  width: 320px;
+  width: ${(props) => (props.$isMobileMenuOpen ? "100%" : "320px")};
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +15,15 @@ export const Aside = styled.aside<{ $dark?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  translate: -100% 0;
+  translate: ${(props) => (props.$isMobileMenuOpen ? "0" : "-100%")} 0;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+
+  .mobile-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   nav {
     display: grid;
@@ -41,7 +51,16 @@ export const Aside = styled.aside<{ $dark?: boolean }>`
     }
   }
 
+  @media screen and (min-width: 640px) {
+    width: 50%;
+  }
+
   @media screen and (min-width: 1024px) {
     translate: 0 0;
+    width: 320px;
+
+    .menu-btn {
+      display: none;
+    }
   }
 `;

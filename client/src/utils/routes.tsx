@@ -1,5 +1,14 @@
 import { ProtectedRoute } from "@/layouts/ProtectedRoute";
-import { AuthForm, Dashboard, Error, Landing, LandingPage } from "@/pages";
+import {
+  AuthForm,
+  Dashboard,
+  Error,
+  JobForm,
+  Jobs,
+  Landing,
+  LandingPage,
+  Profile,
+} from "@/pages";
 import { createBrowserRouter as cRouter } from "react-router-dom";
 
 export const router = cRouter([
@@ -15,7 +24,13 @@ export const router = cRouter([
   {
     path: "/app",
     Component: ProtectedRoute,
-    children: [{ index: true, Component: Dashboard }],
+    children: [
+      { index: true, Component: Dashboard },
+      { path: "/jobs", Component: Jobs },
+      { path: "/job/edit/:id", Component: JobForm },
+      { path: "/job/create", Component: JobForm },
+      { path: "/profile", Component: Profile },
+    ],
   },
   {
     path: "*",

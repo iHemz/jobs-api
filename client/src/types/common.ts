@@ -27,3 +27,11 @@ export type MenuLinkProps = {
   icon: IconType;
   title: string;
 };
+
+export type JobType = {
+  icon: any;
+  class: string;
+  title: string;
+};
+
+export type JobCategory = "pending" | "scheduled" | "declined";

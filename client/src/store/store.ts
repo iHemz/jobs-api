@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "util-storage",
   storage,
+  whitelist: ["isDarkTheme"], // Only persist isDarkTheme, not isMobileMenuOpen
 };
 
 const persistedReducer = persistReducer(persistConfig, toolsReducer);

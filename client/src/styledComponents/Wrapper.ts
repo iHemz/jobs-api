@@ -4,6 +4,7 @@ export const Wrapper = styled.div<{
   $dark?: boolean;
   $aside?: boolean;
   $asideWidth?: number;
+  $isMobileMenuOpen?: boolean;
 }>`
   background: ${(props) =>
     props.$dark ? props.theme.BLACK_8 : props.theme.WHITE};
@@ -35,9 +36,29 @@ export const Wrapper = styled.div<{
       scale: 1.01;
     }
   }
+
+  .menu-icon {
+    color: ${(props) =>
+      props.$dark ? props.theme.PRIMARY_6 : props.theme.BLACK_8};
+  }
+
+  .logo.app {
+    display: ${(props) => (props.$isMobileMenuOpen ? "none" : "flex")};
+
+    scale: 0.8;
+  }
+
+  @media screen and (min-width: 640px) {
+    .logo.app {
+      scale: 1;
+    }
+  }
+
   @media screen and (min-width: 1024px) {
-    & {
-      margin-left: ${(props) => (props.$aside ? props.$asideWidth : 0)}px;
+    margin-left: ${(props) => (props.$aside ? props.$asideWidth : 0)}px;
+
+    .menu-btn {
+      display: none;
     }
 
     .logo.app {
