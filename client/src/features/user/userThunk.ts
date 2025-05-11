@@ -18,7 +18,7 @@ export const registerUserThunk = async (params: UserParams) => {
 
 export const loginUserThunk = async (params: UserParams) => {
   const { url, user, thunkAPI } = params;
-  const { name, ...otherUserDetails } = user;
+  const { firstname, lastname, ...otherUserDetails } = user;
   try {
     const response = (await post<AuthenticatedUser>(
       url,
