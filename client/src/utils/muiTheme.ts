@@ -1,7 +1,6 @@
-import { createTheme } from '@mui/material/styles';
-import { theme as scTheme } from './theme';
+import { theme as scTheme } from "@/utils/theme";
+import { createTheme } from "@mui/material/styles";
 
-// Create a Material UI theme that complements your styled-components theme
 export const muiTheme = createTheme({
   palette: {
     primary: {
@@ -15,7 +14,8 @@ export const muiTheme = createTheme({
     },
     background: {
       default: scTheme.WHITE,
-      paper: scTheme.GREY_0,
+      paper: "#20202c",
+      // paper: scTheme.GREY_0,
     },
     text: {
       primary: scTheme.GREY_9,
@@ -49,20 +49,20 @@ export const muiTheme = createTheme({
   components: {
     MuiTextField: {
       defaultProps: {
-        variant: 'outlined',
+        variant: "outlined",
       },
       styleOverrides: {
         root: {
-          marginBottom: '1rem',
+          marginBottom: "1rem",
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: "none",
           borderRadius: scTheme.BORDER_RADIUS,
-          padding: '0.6rem 1.5rem',
+          padding: "0.6rem 1.5rem",
           transition: scTheme.TRANSITION,
         },
       },

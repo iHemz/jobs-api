@@ -111,3 +111,50 @@ export const DashboardWrapper = styled(Section)`
     }
   }
 `;
+
+export const JobSection = styled(Section)`
+  min-height: inherit;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  & > div:nth-child(1) {
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .filter-dialog-control {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+  }
+
+  .jobs-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .jobs-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .jobs-wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 2560px) {
+    .jobs-wrapper {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+`;

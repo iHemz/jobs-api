@@ -27,8 +27,8 @@ export const router = cRouter([
     children: [
       { index: true, Component: Dashboard },
       { path: "/app/jobs", Component: Jobs },
-      { path: "/app/job/edit/:id", Component: JobForm },
-      { path: "/app/job/create", Component: JobForm },
+      { path: "/app/edit-job/:id", Component: JobForm },
+      { path: "/app/create-job", Component: JobForm },
       { path: "/app/profile", Component: Profile },
     ],
   },

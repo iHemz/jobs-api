@@ -8,4 +8,8 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-export { observer };
+const startCase = (str: string) => {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+export { observer, startCase };

@@ -12,8 +12,9 @@ export default function AppShell({
   const { isDarkTheme, isMobileMenuOpen } = useAppSelector(
     (state) => state.tools
   );
-  const location = useLocation();
-  const isAppPages = location.pathname.includes("app");
+  const { pathname } = useLocation();
+  const isAppPages = pathname.includes("app");
+  const isAuthPages = pathname.includes("auth");
 
   return (
     <Wrapper
@@ -24,9 +25,9 @@ export default function AppShell({
     >
       <Div>
         <Header $isApp={isAppPages}>
-          <HeaderContent pathname={location.pathname} />
+          <HeaderContent pathname={pathname} />
         </Header>
-        <Main $isApp={isAppPages}>
+        <Main $isApp={isAppPages} $isAuth={isAuthPages}>
           <Outlet />
         </Main>
       </Div>

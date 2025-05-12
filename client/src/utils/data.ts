@@ -150,7 +150,7 @@ export const MENU_LINKS: MenuLinkProps[] = [
   },
   {
     id: crypto.randomUUID(),
-    href: "/app/jobs/create",
+    href: "/app/create-job",
     icon: FaCreateJob,
     title: "Add Job",
   },

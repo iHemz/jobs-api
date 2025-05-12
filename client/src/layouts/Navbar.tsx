@@ -14,15 +14,13 @@ export function Navbar() {
   );
   const dispatch = useAppDispatch();
 
+  const closeNavbar = () => void dispatch(closeMobileMenu());
+
   return (
     <Aside $dark={isDarkTheme} $isMobileMenuOpen={isMobileMenuOpen}>
       <div className="mobile-menu">
         <Logo path="/app" />
-        <IconButton
-          className="menu-btn"
-          size="small"
-          onClick={() => dispatch(closeMobileMenu())}
-        >
+        <IconButton className="menu-btn" size="small" onClick={closeNavbar}>
           <MenuClose className="menu-icon" sx={{ width: 32, height: 32 }} />
         </IconButton>
       </div>
@@ -31,8 +29,10 @@ export function Navbar() {
           <NavLink
             key={link.id}
             to={link.href}
-            className={({ isActive, isPending }) =>
-              `navlink ${isActive ? "active" : isPending ? "pending" : ""}`
+            end={link.href === "/app"}
+            onClick={closeNavbar}
+            className={({ isActive }) =>
+              isActive ? "navlink active" : "navlink"
             }
           >
             <link.icon />

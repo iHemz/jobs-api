@@ -1,7 +1,9 @@
 export {
+  FaCalendar,
   FaGithub,
   FaHome,
   FaLinkedinIn,
+  FaLocationArrow as FaLocation,
   FaTwitter,
   FaUser,
 } from "react-icons/fa";

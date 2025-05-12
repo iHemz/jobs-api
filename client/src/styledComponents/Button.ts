@@ -15,3 +15,23 @@ export const Button = styled.button<{ $isIcon?: boolean }>`
     scale: 1.05;
   }
 `;
+
+export const SuccessButton = styled(Button)`
+  background: ${(props) => props.theme.GREEN_LIGHT};
+  color: ${(props) => props.theme.GREEN_DARK};
+
+  &:hover {
+    background: ${(props) => props.theme.GREEN_DARK};
+    color: ${(props) => props.theme.GREEN_LIGHT};
+  }
+`;
+
+export const DangerButton = styled(Button)`
+  background: ${(props) => props.theme.RED_LIGHT};
+  color: ${(props) => props.theme.RED_DARK};
+
+  &:hover {
+    background: ${(props) => props.theme.RED_DARK};
+    color: ${(props) => props.theme.RED_LIGHT};
+  }
+`;

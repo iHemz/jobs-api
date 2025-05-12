@@ -5,6 +5,7 @@ export const toolSlice = createSlice({
   initialState: {
     isDarkTheme: true,
     isMobileMenuOpen: false,
+    isFiltersOpen: false,
   },
   reducers: {
     toggleTheme: (state) => {
@@ -16,9 +17,20 @@ export const toolSlice = createSlice({
     closeMobileMenu: (state) => {
       state.isMobileMenuOpen = false;
     },
+    openFilters: (state) => {
+      state.isFiltersOpen = true;
+    },
+    closeFilters: (state) => {
+      state.isFiltersOpen = false;
+    },
   },
 });
 
-export const { toggleTheme, openMobileMenu, closeMobileMenu } =
-  toolSlice.actions;
+export const {
+  toggleTheme,
+  openMobileMenu,
+  closeMobileMenu,
+  openFilters,
+  closeFilters,
+} = toolSlice.actions;
 export default toolSlice.reducer;
