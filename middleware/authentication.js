@@ -12,8 +12,8 @@ const authMiddleWare = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { name, email, userID } = decoded;
-    req.user = { name, email, userID };
+    const { name, email, userId } = decoded;
+    req.user = { name, email, userId };
     next();
   } catch (error) {
     throw new UnauthenticatedError("No permission to access this route.");

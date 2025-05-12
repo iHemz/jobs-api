@@ -14,6 +14,7 @@ import type {
   TestimonialProp,
   TitleCardProps,
 } from "@/types/common";
+import type { JobOfferType, JobStatus } from "@/types/jobs";
 import {
   FaCreateJob,
   FaEmail,
@@ -175,3 +176,17 @@ export const JOBS_TYPE: Record<JobCategory, JobType> = {
   },
   declined: { icon: WorkOff, class: "declined-job", title: "Jobs Declined" },
 };
+
+export const JOB_STATUS_DATA: Array<{ value: JobStatus; label: string }> = [
+  { value: "pending", label: "Pending" },
+  { value: "interview", label: "Interview" },
+  { value: "declined", label: "Declined" },
+];
+
+export const JOB_TYPE_DATA: Array<{ value: JobOfferType; label: string }> = [
+  { value: "full-time", label: "Full-time" },
+  { value: "part-time", label: "Part-time" },
+  { value: "contract", label: "Contract" },
+  { value: "remote", label: "Remote" },
+  { value: "internship", label: "Internship" },
+];

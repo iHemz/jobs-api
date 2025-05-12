@@ -43,7 +43,8 @@ export const Form = styled.form<{ $isDark?: boolean }>`
       props.$isDark ? "rgba(255,255,255, 0.2)" : props.theme.BLACK};
   }
 
-  input {
+  .auth-input,
+  .auth-input ul li {
     color: ${(props) =>
       props.$isDark ? props.theme.WHITE : props.theme.BLACK};
   }

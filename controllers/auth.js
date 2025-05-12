@@ -28,7 +28,26 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json(user.createJWT());
 };
 
+const updateUser = async (req, res) => {
+  const { firstname, lastname, email } = req.body;
+  if (!email || !firstname || !lastname) {
+    throw new BadRequestError("Please provide all values.");
+  }
+  const user = await User.findOneAndUpdate(
+    { _id: req.user.userId },
+    { firstname, lastname, email },
+    { new: true, runValidators: true }
+  );
+
+  if (!user) {
+    throw new UnauthenticatedError("Invalid Credentials.");
+  }
+
+  res.status(StatusCodes.OK).json(user.createJWT());
+};
+
 module.exports = {
   register,
   login,
+  updateUser,
 };
