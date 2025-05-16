@@ -44,6 +44,7 @@ export const Form = styled.form<{ $isDark?: boolean }>`
   }
 
   .auth-input,
+  input,
   .auth-input ul li {
     color: ${(props) =>
       props.$isDark ? props.theme.WHITE : props.theme.BLACK};

@@ -24,3 +24,9 @@ export interface JobProps extends JobFormProps {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface JobResponse {
+  jobs: JobProps[];
+  count: number;
+  totalPages: number;
+}

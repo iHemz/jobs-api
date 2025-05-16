@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/hooks/useStore";
 import { Button, Form } from "@/styledComponents";
 import { type JobFormProps } from "@/types/jobs";
-import { JOB_TYPE_DATA } from "@/utils/data";
+import { JOB_STATUS_DATA, JOB_TYPE_DATA } from "@/utils/data";
 import {
   FormControl,
   FormHelperText,
@@ -136,20 +136,32 @@ export function JobForm() {
           />
         )}
       />
-      {!isEditing && (
+      {isEditing && (
         <>
           <Controller
             name="status"
             control={control}
             render={({ field }) => (
-              <TextField
-                label="Status"
-                variant="outlined"
-                {...field}
-                error={!!errors.status}
-                helperText={errors.status?.message}
-                className="auth-input"
-              />
+              <FormControl>
+                <Select
+                  label="Status"
+                  variant="outlined"
+                  {...field}
+                  error={!!errors.status}
+                  className="auth-input"
+                >
+                  {JOB_STATUS_DATA.map((option) => (
+                    <MenuItem
+                      key={option.value}
+                      value={option.value}
+                      sx={{ color: "white " }}
+                    >
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>{errors.status?.message}</FormHelperText>
+              </FormControl>
             )}
           />
         </>
@@ -167,7 +179,11 @@ export function JobForm() {
               className="auth-input"
             >
               {JOB_TYPE_DATA.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                  sx={{ color: "white " }}
+                >
                   {option.label}
                 </MenuItem>
               ))}

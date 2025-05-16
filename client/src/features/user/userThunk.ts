@@ -1,10 +1,16 @@
-import type { ClearStoreParams, UserParams } from "@/features/user/types";
+import type {
+  ClearStorePayloadCreator,
+  UserThunkPayloadCreator,
+} from "@/features/types";
 import { logoutUser } from "@/features/user/userSlice";
 import type { AuthenticatedUser } from "@/types/auth";
-import { post } from "@/utils/api";
+import { patch, post } from "@/utils/api";
 
-export const registerUserThunk = async (params: UserParams) => {
-  const { url, user, thunkAPI } = params;
+export const registerUserThunk: UserThunkPayloadCreator = async (
+  params,
+  thunkAPI
+) => {
+  const { url, user } = params;
   try {
     const response = (await post<AuthenticatedUser>(
       url,
@@ -16,8 +22,28 @@ export const registerUserThunk = async (params: UserParams) => {
   }
 };
 
-export const loginUserThunk = async (params: UserParams) => {
-  const { url, user, thunkAPI } = params;
+export const updateUserThunk: UserThunkPayloadCreator = async (
+  params,
+  thunkAPI
+) => {
+  const { url, user } = params;
+  const { password, ...otherUserDetails } = user;
+  try {
+    const response = (await patch<AuthenticatedUser>(
+      url,
+      otherUserDetails
+    )) as AuthenticatedUser;
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+};
+
+export const loginUserThunk: UserThunkPayloadCreator = async (
+  params,
+  thunkAPI
+) => {
+  const { url, user } = params;
   const { firstname, lastname, ...otherUserDetails } = user;
   try {
     const response = (await post<AuthenticatedUser>(
@@ -30,8 +56,10 @@ export const loginUserThunk = async (params: UserParams) => {
   }
 };
 
-export const clearStoreThunk = async (params: ClearStoreParams) => {
-  const { message, thunkAPI } = params;
+export const clearStoreThunk: ClearStorePayloadCreator = async (
+  message,
+  thunkAPI
+) => {
   try {
     thunkAPI.dispatch(logoutUser(message));
     return Promise.resolve();

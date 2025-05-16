@@ -1,8 +1,9 @@
-import type { UserStore } from "@/features/user/types";
+import type { UserStore } from "@/features/types";
 import {
   clearStoreThunk,
   loginUserThunk,
   registerUserThunk,
+  updateUserThunk,
 } from "@/features/user/userThunk";
 import type { UserAuth } from "@/types/auth";
 import { fetchUser, removeUser, setAccessToken, storeUser } from "@/utils/auth";
@@ -17,24 +18,28 @@ const initialState: UserStore = {
 export const registerUser = createAsyncThunk(
   "user/register",
   async (user: UserAuth, thunkAPI) => {
-    return registerUserThunk({ url: "/auth/register", user, thunkAPI });
+    return registerUserThunk({ url: "/auth/register", user }, thunkAPI);
   }
 );
 
 export const loginUser = createAsyncThunk(
   "user/login",
   async (user: UserAuth, thunkAPI) => {
-    return loginUserThunk({ url: "/auth/login", user, thunkAPI });
+    return loginUserThunk({ url: "/auth/login", user }, thunkAPI);
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "user/update-user",
+  async (user: UserAuth, thunkAPI) => {
+    return updateUserThunk({ url: "/auth/update-user", user }, thunkAPI);
   }
 );
 
 export const clearStore = createAsyncThunk(
   "user/clearStore",
   async (_, thunkAPI) => {
-    return clearStoreThunk({
-      message: "User logged out successfully",
-      thunkAPI,
-    });
+    return clearStoreThunk("User logged out successfully", thunkAPI);
   }
 );
 
@@ -89,6 +94,20 @@ const userSlice = createSlice({
       toast.error("There was an error logging out");
     });
     builder.addCase(clearStore.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const { token, ...user } = action.payload;
+      state.user = user;
+      storeUser(user);
+      toast.success("Profile updated successfully");
+    });
+    builder.addCase(updateUser.rejected, (state) => {
+      state.isLoading = false;
+      toast.error("There was an error updating your profile");
+    });
+    builder.addCase(updateUser.pending, (state) => {
       state.isLoading = true;
     });
   },

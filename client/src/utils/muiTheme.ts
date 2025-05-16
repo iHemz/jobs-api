@@ -67,5 +67,12 @@ export const muiTheme = createTheme({
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: "white",
+        },
+      },
+    },
   },
 });

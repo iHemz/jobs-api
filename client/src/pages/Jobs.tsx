@@ -1,6 +1,8 @@
 import { JobDetailsCard } from "@/components";
+import { getJobs } from "@/features";
 import { closeFilters, openFilters } from "@/features/tools/toolsSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { JobDetailsCardSkeleton } from "@/skeletons";
 import { Div, JobSection } from "@/styledComponents";
 import { Close, FilterList } from "@mui/icons-material";
 import {
@@ -13,20 +15,29 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useEffect } from "react";
 
 export function Jobs() {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { isFiltersOpen, isDarkTheme } = useAppSelector((state) => state.tools);
+  const { tools, jobs: allJobs } = useAppSelector((state) => state);
+  const { isFiltersOpen, isDarkTheme } = tools;
+  const { jobs, isLoading, totalJobs, search, searchStatus, jobType, sort } =
+    allJobs;
 
   const onClose = () => void dispatch(closeFilters());
 
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  useEffect(() => {
+    dispatch(getJobs());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, searchStatus, jobType, sort]);
+
   return (
     <JobSection>
       <Div>
-        <h5>10 Jobs found</h5>
+        <h5>{totalJobs} Jobs found</h5>
         <Tooltip title="Filters">
           <IconButton size="small" onClick={() => dispatch(openFilters())}>
             <FilterList className="menu-icon" sx={{ width: 32, height: 32 }} />
@@ -34,19 +45,13 @@ export function Jobs() {
         </Tooltip>
       </Div>
       <Div className="jobs-wrapper">
-        {Array.from(new Array(12)).map((_, index) => (
-          <JobDetailsCard
-            key={index}
-            isDark={isDarkTheme}
-            id={index.toString()}
-            company="Company"
-            jobTitle="Job Title"
-            location="Location"
-            date="Date"
-            category="Category"
-            status="pending"
-          />
-        ))}
+        {isLoading
+          ? Array.from(new Array(12)).map((_, index) => (
+              <JobDetailsCardSkeleton key={index} isDark={isDarkTheme} />
+            ))
+          : jobs.map((job) => (
+              <JobDetailsCard key={job._id} isDark={isDarkTheme} {...job} />
+            ))}
       </Div>
       <Dialog
         open={isFiltersOpen}

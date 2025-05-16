@@ -2,14 +2,44 @@ const Job = require("../models/Job");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require("../errors");
 
+const sortType = {
+  latest: "-createdAt",
+  oldest: "createdAt",
+  "a-z": "-position",
+  "z-a": "position",
+};
+
 const getAllJobs = async (req, res) => {
-  const { page = "1", limit = "10" } = req.query;
-  const result = Job.find({ createdBy: req.user.userID }).sort("createdAt");
+  const { page = "1", limit = "10", search, sort, status, jobType } = req.query;
+  const queryObject = { createdBy: req.user.userID };
+
+  if (search && search.length > 0) {
+    queryObject.position = { $regex: search, $options: "i" };
+  }
+
+  if (status && status !== "all") {
+    queryObject.status = status;
+  }
+
+  if (jobType && jobType !== "all") {
+    queryObject.jobType = jobType;
+  }
+
+  const result = Job.find(queryObject);
+
+  if (sort && sortType[sort]) {
+    result.sort(sortType[sort]);
+  }
+
   const _page = Number(page) - 1;
   const _limit = Number(limit);
   const skip = _page * _limit;
   const jobs = await result.skip(skip);
-  return res.status(StatusCodes.OK).json({ jobs, count: jobs.length });
+
+  const count = await Job.estimatedDocumentCount(queryObject);
+  const totalPages = Math.ceil(count / _limit);
+
+  return res.status(StatusCodes.OK).json({ jobs, count, totalPages });
 };
 
 const getJob = async (req, res) => {

@@ -1,4 +1,4 @@
-import type { JobCategory } from "@/types/common";
+import type { JobStatus } from "@/types/jobs";
 import styled from "styled-components";
 
 export const Div = styled.div`
@@ -6,7 +6,7 @@ export const Div = styled.div`
   height: 100%;
 `;
 
-export const StatusBox = styled.div<{ $status?: JobCategory }>`
+export const StatusBox = styled.div<{ $status?: JobStatus }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,13 +16,13 @@ export const StatusBox = styled.div<{ $status?: JobCategory }>`
   background-color: ${(props) =>
     props.$status === "pending"
       ? "#ffeb3b"
-      : props.$status === "scheduled"
+      : props.$status === "interview"
       ? "#ff9800"
       : "#f44336"};
   color: ${(props) =>
     props.$status === "pending"
       ? "#20202c"
-      : props.$status === "scheduled"
+      : props.$status === "interview"
       ? "#20202c"
       : "white"};
 `;

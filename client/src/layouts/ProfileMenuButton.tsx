@@ -7,10 +7,13 @@ type Props = {
 };
 
 export default function ProfileMenuButton({ onClick, open }: Props) {
-  const { user, isDark } = useAppSelector((state) => ({
-    user: state.user.user,
-    isDark: state.tools.isDarkTheme,
-  }));
+  const { user, isDark } = useAppSelector(
+    (state) => ({
+      user: state.user.user,
+      isDark: state.tools.isDarkTheme,
+    }),
+    (prev, next) => prev.user === next.user && prev.isDark === next.isDark
+  );
 
   return (
     <Tooltip title="Account settings">

@@ -54,7 +54,7 @@ export function ProfileMenu() {
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout sx={{ color: "white" }} fontSize="small" />
           </ListItemIcon>
           Logout
         </MenuItem>

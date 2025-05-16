@@ -5,32 +5,25 @@ import {
   StatusBox,
   SuccessButton,
 } from "@/styledComponents";
-import type { JobCategory } from "@/types/common";
+import type { JobProps, JobStatus } from "@/types/jobs";
 import { startCase } from "@/utils/common";
 import { FaCalendar, FaLocation, FaWork } from "@/utils/icons";
 import { Divider } from "@mui/material";
 import type React from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {
-  id: string;
-  company: string;
-  jobTitle: string;
-  location: string;
+interface Props extends JobProps {
   isDark: boolean;
-  date: string;
-  category: string;
-  status: JobCategory;
-};
+}
 
 export function JobDetailsCard({
-  id,
+  _id: id,
   company,
-  jobTitle,
-  location,
+  position,
+  jobLocation,
   isDark,
-  date,
-  category,
+  createdAt,
+  jobType,
   status,
 }: Props) {
   const navigate = useNavigate();
@@ -39,15 +32,15 @@ export function JobDetailsCard({
       <Div className="detail-header">
         <p className="avatar">J</p>
         <Div>
-          <h5>{jobTitle}</h5>
+          <h5>{position}</h5>
           <p>{company}</p>
         </Div>
       </Div>
       <Divider sx={{ backgroundColor: isDark ? "#ccc" : "#20202c" }} />
       <Div className="detail-body">
-        <TitleWithIcon title={location} icon={FaLocation} />
-        <TitleWithIcon title={date} icon={FaCalendar} />
-        <TitleWithIcon title={category} icon={FaWork} />
+        <TitleWithIcon title={jobLocation} icon={FaLocation} />
+        <TitleWithIcon title={createdAt} icon={FaCalendar} />
+        <TitleWithIcon title={jobType} icon={FaWork} />
         <StatusCard status={status} />
       </Div>
       <Div className="btns">
@@ -75,7 +68,7 @@ function TitleWithIcon({
   );
 }
 
-function StatusCard({ status }: { status: JobCategory }) {
+function StatusCard({ status }: { status: JobStatus }) {
   return (
     <StatusBox $status={status}>
       <p>{startCase(status)}</p>
