@@ -1,3 +1,4 @@
+import jobReducer from "@/features/job/JobSlice";
 import jobsReducer from "@/features/jobs/jobsSlice";
 import toolsReducer from "@/features/tools/toolsSlice";
 import userReducer from "@/features/user/userSlice";
@@ -14,7 +15,12 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, toolsReducer);
 
 export const store = configureStore({
-  reducer: { tools: persistedReducer, user: userReducer, jobs: jobsReducer },
+  reducer: {
+    tools: persistedReducer,
+    user: userReducer,
+    jobs: jobsReducer,
+    job: jobReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

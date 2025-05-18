@@ -11,7 +11,7 @@ const sortType = {
 
 const getAllJobs = async (req, res) => {
   const { page = "1", limit = "10", search, sort, status, jobType } = req.query;
-  const queryObject = { createdBy: req.user.userID };
+  const queryObject = { createdBy: req.user.userId };
 
   if (search && search.length > 0) {
     queryObject.position = { $regex: search, $options: "i" };
@@ -45,7 +45,7 @@ const getAllJobs = async (req, res) => {
 const getJob = async (req, res) => {
   const job = await Job.findOne({
     _id: req.params.id,
-    createdBy: req.user.userID,
+    createdBy: req.user.userId,
   });
   if (!job) {
     throw new NotFoundError("Job cannot be found.");
@@ -54,7 +54,7 @@ const getJob = async (req, res) => {
 };
 
 const createJob = async (req, res) => {
-  req.body.createdBy = req.user.userID;
+  req.body.createdBy = req.user.userId;
   const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json(job);
 };
@@ -63,7 +63,7 @@ const updateJob = async (req, res) => {
   const {
     body: { company, position },
     params: { id: jobId },
-    user: { userID },
+    user: { userId },
   } = req;
 
   if ([company, position].some((i) => i === "")) {
@@ -73,7 +73,7 @@ const updateJob = async (req, res) => {
   const job = await Job.findOneAndUpdate(
     {
       _id: jobId,
-      createdBy: userID,
+      createdBy: userId,
     },
     req.body,
     { runValidators: true, new: true }
@@ -87,10 +87,10 @@ const updateJob = async (req, res) => {
 const deleteJob = async (req, res) => {
   const {
     params: { id: jobId },
-    user: { userID },
+    user: { userId },
   } = req;
   const deletedJob = await Job.findOneAndDelete({
-    createdBy: userID,
+    createdBy: userId,
     _id: jobId,
   });
   if (!deletedJob) {

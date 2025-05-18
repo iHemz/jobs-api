@@ -1,14 +1,14 @@
 import { getJobsThunk } from "@/features/jobs/jobsThunk";
 import type {
+  AllJobsFilterState,
+  AllJobsState,
   HandleChangeAction,
   HandlePageChangeAction,
-  JobFilterState,
-  JobState,
 } from "@/features/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
-const initialFiltersState: JobFilterState = {
+const initialFiltersState: AllJobsFilterState = {
   search: "",
   searchStatus: "all",
   jobType: "all",
@@ -16,7 +16,7 @@ const initialFiltersState: JobFilterState = {
   sortOptions: ["latest", "oldest", "a-z", "z-a"],
 };
 
-const initialJobsState: JobState = {
+const initialJobsState: AllJobsState = {
   jobs: [],
   isLoading: false,
   page: 1,
@@ -57,7 +57,7 @@ const jobsSlice = createSlice({
     }),
     changePage: (state, { payload }: HandlePageChangeAction) =>
       void (state.page = payload),
-    clearState: (_) => initialJobsState,
+    clearJobsState: (_) => initialJobsState,
   },
   extraReducers: (builder) =>
     void builder
@@ -85,7 +85,7 @@ export const {
   handleChange,
   clearFilters,
   changePage,
-  clearState,
+  clearJobsState,
 } = jobsSlice.actions;
 
 export default jobsSlice.reducer;

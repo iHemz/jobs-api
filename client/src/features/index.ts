@@ -1,7 +1,17 @@
 export {
+  addJob,
+  clearJob,
+  deleteJob,
+  handleJobChange,
+  setCurrentJobId,
+  setJobState,
+  updateJob,
+  validateJob,
+} from "@/features/job/JobSlice";
+export {
   changePage,
   clearFilters,
-  clearState,
+  clearJobsState as clearJobs,
   getJobs,
   handleChange,
   hideLoading,

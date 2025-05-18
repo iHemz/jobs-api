@@ -1,6 +1,6 @@
 import type { AuthenticatedUser, UserAuth } from "@/types/auth";
 import type { FeatureState } from "@/types/features";
-import type { JobProps, JobResponse } from "@/types/jobs";
+import type { JobFormProps, JobProps, JobResponse } from "@/types/jobs";
 import type { AsyncThunkPayloadCreator, PayloadAction } from "@reduxjs/toolkit";
 
 export type UserParams = {
@@ -25,7 +25,7 @@ export type UserStore = {
   user: Omit<AuthenticatedUser, "token"> | null;
 };
 
-export type JobFilterState = {
+export type AllJobsFilterState = {
   search: string;
   searchStatus: string;
   jobType: string;
@@ -33,7 +33,7 @@ export type JobFilterState = {
   sortOptions: string[];
 };
 
-export interface JobState extends JobFilterState {
+export interface AllJobsState extends AllJobsFilterState {
   jobs: JobProps[];
   isLoading: boolean;
   page: number;
@@ -42,8 +42,8 @@ export interface JobState extends JobFilterState {
 }
 
 export type HandleChangeAction = PayloadAction<{
-  key: keyof JobFilterState;
-  value: JobFilterState[keyof JobFilterState];
+  key: keyof AllJobsFilterState;
+  value: AllJobsFilterState[keyof AllJobsFilterState];
 }>;
 
 export type HandlePageChangeAction = PayloadAction<number>;
@@ -53,3 +53,39 @@ export type JobsThunkPayloadCreator = AsyncThunkPayloadCreator<
   void,
   { state: FeatureState }
 >;
+
+export type SingleJobState = {
+  isLoading: boolean;
+  id: string;
+  job: JobFormProps;
+  errors: Record<keyof JobFormProps, string | null>;
+  hasErrors: boolean;
+};
+
+export type HandleJobChangeAction = PayloadAction<JobFieldChangeAction>;
+
+export type SingleJobThunkPayloadCreator = AsyncThunkPayloadCreator<
+  JobProps,
+  void,
+  { state: FeatureState }
+>;
+
+export type DeleteJobThunkPayloadCreator = AsyncThunkPayloadCreator<
+  void,
+  string,
+  { state: FeatureState }
+>;
+
+export type HandleJobErrorsAction = PayloadAction<{
+  key: keyof JobFormProps;
+  value: string;
+}>;
+
+export type ValidateJobAction = PayloadAction<boolean>;
+export type SetCurrentJobIdAction = PayloadAction<string>;
+export type SetEditJobState = PayloadAction<{ id: string; job: JobFormProps }>;
+
+export type JobFieldChangeAction = {
+  key: keyof JobFormProps;
+  value: JobFormProps[keyof JobFormProps];
+};

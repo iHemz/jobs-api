@@ -1,3 +1,5 @@
+import { deleteJob, setJobState } from "@/features";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import {
   DangerButton,
   Div,
@@ -9,6 +11,7 @@ import type { JobProps, JobStatus } from "@/types/jobs";
 import { startCase } from "@/utils/common";
 import { FaCalendar, FaLocation, FaWork } from "@/utils/icons";
 import { Divider } from "@mui/material";
+import dayjs from "dayjs";
 import type React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +30,12 @@ export function JobDetailsCard({
   status,
 }: Props) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLoading, isCurrentJob } = useAppSelector((state) => ({
+    isLoading: state.job.isLoading,
+    isCurrentJob: state.job.id === id,
+  }));
+
   return (
     <JobDetailWrapper $dark={isDark}>
       <Div className="detail-header">
@@ -39,15 +48,30 @@ export function JobDetailsCard({
       <Divider sx={{ backgroundColor: isDark ? "#ccc" : "#20202c" }} />
       <Div className="detail-body">
         <TitleWithIcon title={jobLocation} icon={FaLocation} />
-        <TitleWithIcon title={createdAt} icon={FaCalendar} />
+        <TitleWithIcon
+          title={dayjs(createdAt).format("MMM DD, YYYY")}
+          icon={FaCalendar}
+        />
         <TitleWithIcon title={jobType} icon={FaWork} />
         <StatusCard status={status} />
       </Div>
       <Div className="btns">
-        <SuccessButton onClick={() => navigate(`/app/edit-job/${id}`)}>
-          View Job
+        <SuccessButton
+          onClick={() => {
+            dispatch(
+              setJobState({
+                id,
+                job: { company, position, jobLocation, jobType, status },
+              })
+            );
+            navigate(`/app/edit-job/${id}`);
+          }}
+        >
+          Edit
         </SuccessButton>
-        <DangerButton>Remove Job</DangerButton>
+        <DangerButton onClick={() => void dispatch(deleteJob(id))}>
+          {isLoading && isCurrentJob ? "Deleting..." : "Delete"}
+        </DangerButton>
       </Div>
     </JobDetailWrapper>
   );

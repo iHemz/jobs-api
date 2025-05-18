@@ -1,4 +1,5 @@
 import { Logo } from "@/components";
+import { clearJob } from "@/features";
 import { closeMobileMenu } from "@/features/tools/toolsSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { ProfileMenu } from "@/layouts/ProfileMenu";
@@ -14,7 +15,10 @@ export function Navbar() {
   );
   const dispatch = useAppDispatch();
 
-  const closeNavbar = () => void dispatch(closeMobileMenu());
+  const closeNavbar = () => {
+    dispatch(closeMobileMenu());
+    dispatch(clearJob());
+  };
 
   return (
     <Aside $dark={isDarkTheme} $isMobileMenuOpen={isMobileMenuOpen}>

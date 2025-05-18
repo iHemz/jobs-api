@@ -1,13 +1,13 @@
 import { Footer, Header } from "@/components";
 import AppShell from "@/layouts/AppShell";
 import { Navbar } from "@/layouts/Navbar";
-import { getAccessToken } from "@/utils/auth";
-import { Navigate } from "react-router-dom";
+import type { AuthVerifier } from "@/types/auth";
+import { Navigate, useLoaderData } from "react-router-dom";
 
 export function ProtectedRoute() {
-  const authToken = getAccessToken();
+  const { success } = useLoaderData() as AuthVerifier;
 
-  if (!authToken) {
+  if (!success) {
     return <Navigate to="/auth/login" />;
   }
 

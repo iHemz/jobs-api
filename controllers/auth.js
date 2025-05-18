@@ -46,8 +46,15 @@ const updateUser = async (req, res) => {
   res.status(StatusCodes.OK).json(user.createJWT());
 };
 
+const verifyToken = async (req, res) => {
+  if (req.user.userId) {
+    res.status(StatusCodes.OK).json({ success: true });
+  }
+};
+
 module.exports = {
   register,
   login,
   updateUser,
+  verifyToken,
 };

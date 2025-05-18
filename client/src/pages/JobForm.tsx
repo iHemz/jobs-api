@@ -1,21 +1,16 @@
-import { useAppSelector } from "@/hooks/useStore";
+import { addJob, handleJobChange, updateJob, validateJob } from "@/features";
+import type { JobFieldChangeAction } from "@/features/types";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { Button, Form } from "@/styledComponents";
-import { type JobFormProps } from "@/types/jobs";
 import { JOB_STATUS_DATA, JOB_TYPE_DATA } from "@/utils/data";
 import {
   FormControl,
   FormHelperText,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
-import { useCallback, useEffect } from "react";
-import {
-  Controller,
-  useForm,
-  type ErrorOption,
-  type SubmitHandler,
-} from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function JobForm() {
@@ -25,160 +20,74 @@ export function JobForm() {
 
   const navigate = useNavigate();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isLoading, isSubmitSuccessful },
-    setError,
-  } = useForm<JobFormProps>({
-    defaultValues: {
-      company: "",
-      position: "",
-      status: "pending",
-      jobType: "full-time",
-      jobLocation: "",
-    },
-    mode: "onSubmit",
-  });
+  const { job, isLoading, errors } = useAppSelector((state) => state.job);
+  const dispatch = useAppDispatch();
 
-  const validateParams = (data: JobFormProps) => {
-    const errors: Record<string, ErrorOption> = {};
-    if (!isEditing) {
-      if (!data.status) {
-        errors.status = {
-          type: "required",
-          message: "status  is required",
-        };
-      }
-      if (!data.company) {
-        errors.company = {
-          type: "required",
-          message: "company is required",
-        };
-      }
-    }
-    if (!data.position) {
-      errors.position = {
-        type: "required",
-        message: "position is required",
-      };
-    }
-    if (!data.jobType) {
-      errors.jobType = {
-        type: "required",
-        message: "jobType is required",
-      };
-    }
-    if (!data.jobLocation) {
-      errors.jobLocation = {
-        type: "required",
-        message: "jobLocation is required",
-      };
-    }
-    return errors;
+  const onChange = ({ key, value }: JobFieldChangeAction) => {
+    dispatch(handleJobChange({ key, value }));
   };
 
-  const onSubmit: SubmitHandler<JobFormProps> = (data) => {
-    const validationErrors = validateParams(data);
-    if (Object.keys(validationErrors).length > 0) {
-      Object.entries(validationErrors).forEach(([field, error]) => {
-        setError(field as any, error, { shouldFocus: true });
-      });
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(validateJob(isEditing));
+    if (isEditing) {
+      dispatch(updateJob())
+        .unwrap()
+        .then(() => navigate("/app/jobs"));
       return;
     }
+    dispatch(addJob())
+      .unwrap()
+      .then(() => navigate("/app/jobs"));
   };
-
-  const navigateToJobs = useCallback(() => {
-    if (isSubmitSuccessful) {
-      navigate("/app/jobs");
-    }
-  }, [isSubmitSuccessful, navigate]);
-
-  useEffect(() => {
-    navigateToJobs();
-  }, [navigateToJobs]);
 
   const BUTTON_TEXT = isLoading ? "Saving..." : isEditing ? "Update" : "Create";
 
   return (
     <Form
       $isDark={isDark}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       className="form-center"
       noValidate
     >
-      <Controller
-        name="company"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            label="Company"
-            variant="outlined"
-            {...field}
-            required
-            error={!!errors.company}
-            helperText={errors.company?.message}
-            className="auth-input"
-          />
-        )}
+      <TextField
+        label="Company"
+        variant="outlined"
+        value={job.company}
+        onChange={(e) => onChange({ key: "company", value: e.target.value })}
+        required
+        error={!!errors.company}
+        helperText={errors.company}
+        className="auth-input"
       />
-      <Controller
-        name="position"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            label="Position"
-            variant="outlined"
-            {...field}
-            error={!!errors.position}
-            helperText={errors.position?.message}
-            className="auth-input"
-          />
-        )}
+
+      <TextField
+        label="Position"
+        variant="outlined"
+        value={job.position}
+        onChange={(e) => onChange({ key: "position", value: e.target.value })}
+        required
+        error={!!errors.position}
+        helperText={errors.position}
+        className="auth-input"
       />
+
       {isEditing && (
         <>
-          <Controller
-            name="status"
-            control={control}
-            render={({ field }) => (
-              <FormControl>
-                <Select
-                  label="Status"
-                  variant="outlined"
-                  {...field}
-                  error={!!errors.status}
-                  className="auth-input"
-                >
-                  {JOB_STATUS_DATA.map((option) => (
-                    <MenuItem
-                      key={option.value}
-                      value={option.value}
-                      sx={{ color: "white " }}
-                    >
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText>{errors.status?.message}</FormHelperText>
-              </FormControl>
-            )}
-          />
-        </>
-      )}
-      <Controller
-        name="jobType"
-        control={control}
-        render={({ field }) => (
-          <FormControl>
+          <FormControl className="auth-input">
+            <InputLabel id="status">Status</InputLabel>
             <Select
-              label="Job Type"
+              labelId="status"
+              label="Status"
               variant="outlined"
-              {...field}
-              error={!!errors.jobType}
+              value={job.status}
+              onChange={(e) =>
+                onChange({ key: "status", value: e.target.value })
+              }
+              error={!!errors.status}
               className="auth-input"
             >
-              {JOB_TYPE_DATA.map((option) => (
+              {JOB_STATUS_DATA.map((option) => (
                 <MenuItem
                   key={option.value}
                   value={option.value}
@@ -188,24 +97,47 @@ export function JobForm() {
                 </MenuItem>
               ))}
             </Select>
-            <FormHelperText>{errors.jobType?.message}</FormHelperText>
+            <FormHelperText>{errors.status}</FormHelperText>
           </FormControl>
-        )}
+        </>
+      )}
+
+      <FormControl className="auth-input">
+        <InputLabel id="job-type">Job Type</InputLabel>
+        <Select
+          labelId="job-type"
+          label="Job Type"
+          variant="outlined"
+          value={job.jobType}
+          onChange={(e) => onChange({ key: "jobType", value: e.target.value })}
+          error={!!errors.jobType}
+          className="auth-input"
+        >
+          {JOB_TYPE_DATA.map((option) => (
+            <MenuItem
+              key={option.value}
+              value={option.value}
+              sx={{ color: "white " }}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>{errors.jobType}</FormHelperText>
+      </FormControl>
+
+      <TextField
+        label="Job Location"
+        variant="outlined"
+        value={job.jobLocation}
+        onChange={(e) =>
+          onChange({ key: "jobLocation", value: e.target.value })
+        }
+        error={!!errors.jobLocation}
+        helperText={errors.jobLocation}
+        className="auth-input"
       />
-      <Controller
-        name="jobLocation"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            label="Job Location"
-            variant="outlined"
-            {...field}
-            error={!!errors.jobLocation}
-            helperText={errors.jobLocation?.message}
-            className="auth-input"
-          />
-        )}
-      />
+
       <Button type="submit">{BUTTON_TEXT}</Button>
     </Form>
   );

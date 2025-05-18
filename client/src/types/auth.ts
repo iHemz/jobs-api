@@ -23,3 +23,7 @@ type AuthError = {
 };
 
 export type { AuthenticatedUser, AuthError, AuthProps, UserAuth, UserClass };
+
+export type AuthVerifier = {
+  success: boolean;
+};

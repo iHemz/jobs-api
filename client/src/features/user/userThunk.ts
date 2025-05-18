@@ -1,3 +1,4 @@
+import { clearJobs } from "@/features";
 import type {
   ClearStorePayloadCreator,
   UserThunkPayloadCreator,
@@ -62,6 +63,7 @@ export const clearStoreThunk: ClearStorePayloadCreator = async (
 ) => {
   try {
     thunkAPI.dispatch(logoutUser(message));
+    thunkAPI.dispatch(clearJobs());
     return Promise.resolve();
   } catch (error) {
     return Promise.reject();
